@@ -271,6 +271,7 @@ section {
 /* ============ Home ============ */
 .home {
   min-height: 100vh;
+  min-height: 100svh;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   align-items: center;
@@ -773,5 +774,30 @@ section {
   }
   section {
     padding: 5.5rem 6% 3.5rem;
+  }
+}
+
+/* Em telas sem hover (touch), o flip 3D pode falhar a renderizar a face
+   de tras em alguns navegadores mobile (bug conhecido de backface-visibility
+   dentro de perspective). Troca o giro 3D por um crossfade 2D simples. */
+@media (hover: none) {
+  .portifolio-card {
+    transform: none !important;
+  }
+  .portifolio-face--front {
+    transition: opacity 0.5s var(--ease);
+  }
+  .portifolio-face--back {
+    transform: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease);
+  }
+  .portifolio-box.flipped .portifolio-face--front {
+    opacity: 0;
+  }
+  .portifolio-box.flipped .portifolio-face--back {
+    opacity: 1;
+    pointer-events: auto;
   }
 }
